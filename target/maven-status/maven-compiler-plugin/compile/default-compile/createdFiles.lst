@@ -1,0 +1,4 @@
+com\ben\scrapers\ScraperManager.class
+com\ben\scrapers\AppConfig.class
+com\ben\scrapers\WebScrapers.class
+com\ben\scrapers\Scraper.class
