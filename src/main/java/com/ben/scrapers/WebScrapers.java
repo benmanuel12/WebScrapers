@@ -14,8 +14,15 @@ public class WebScrapers {
      */
     public static void main(String[] args){
 
+        /*
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         ScraperManager scraperManager = (ScraperManager) context.getBean("manager");
         scraperManager.scrape();
+        */
+
+        HibernateDAO newdao = new HibernateDAO();
+        newdao.init();
+        newdao.addCard();
+        newdao.shutDown();
     }
 }

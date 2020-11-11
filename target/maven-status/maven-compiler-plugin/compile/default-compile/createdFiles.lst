@@ -1,4 +1,7 @@
 com\ben\scrapers\ScraperManager.class
-com\ben\scrapers\AppConfig.class
 com\ben\scrapers\WebScrapers.class
+com\ben\scrapers\CardAnnotation.class
+com\ben\scrapers\OptionAnnotation.class
+com\ben\scrapers\AppConfig.class
+com\ben\scrapers\HibernateDAO.class
 com\ben\scrapers\Scraper.class
