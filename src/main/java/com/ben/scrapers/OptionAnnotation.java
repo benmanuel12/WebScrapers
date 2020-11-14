@@ -17,8 +17,9 @@ public class OptionAnnotation {
     @Column(name = "shop_name")
     private String shopName;
 
-    @Column(name = "card_id")
-    private int cardId;
+    @ManyToOne
+    @JoinColumn(name = "card_id", nullable=false)
+    private CardAnnotation cardId;
 
     @Column(name = "price")
     private float price;
@@ -45,11 +46,11 @@ public class OptionAnnotation {
         this.shopName = shopName;
     }
 
-    public int getCardId() {
+    public CardAnnotation getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(CardAnnotation cardId) {
         this.cardId = cardId;
     }
 
