@@ -32,11 +32,10 @@ public class Scraper1 extends Scraper {
         WebDriver driver = new ChromeDriver(options);
         stop = false;
 
-
         driver.get("https://www.magicmadhouse.co.uk/magic-the-gathering-c1#t10659:t10778:t10779:t10780:t85:t86:t10781");
 
         try {
-            sleep(loadDelay);
+            sleep(5000);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -45,21 +44,27 @@ public class Scraper1 extends Scraper {
         for (WebElement card : cardList) {
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.product__image a img"));
-            String src = imageTag.getAttribute("src");
-            System.out.println("Image source: " + src);
+            String src = imageTag.getAttribute("data-src");
+            System.out.println("Image source: https://www.magicmadhouse.co.uk" + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.product__details__holder div.product__details div.product__details__title a"));
-            System.out.print("Card name: " + nameTag.getAttribute("title") + "\n");
+            System.out.println("Card name: " + nameTag.getAttribute("title"));
 
             // Find the purchase URL
-            System.out.print("Purchase URL: https://www.magicmadhouse.co.uk/" + nameTag.getAttribute("href") + "\n");
+            System.out.println("Purchase URL: " + nameTag.getAttribute("href"));
 
             // Find the price
-            //WebElement priceTag = card.findElement(By.cssSelector("div.product__details__holder div.product__options > div.product__detail__prices > span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
-            //System.out.print("Price: " + nameTag.getAttribute("innerHTML"));
+            WebElement priceTag1 = card.findElement(By.cssSelector("div.product__details__holder"));
+            //System.out.println("Got priceTag1");
+            WebElement priceTag0 = priceTag1.findElement(By.cssSelector("div.product__options"));
+            //System.out.println("Got priceTag0");
+            WebElement priceTag7 = priceTag0.findElement(By.cssSelector("div.product__details__prices"));
+            //System.out.println("Got priceTag7");
+            WebElement priceTag2 = priceTag7.findElement(By.cssSelector("span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
+            //System.out.println("Got priceTag2");
+            System.out.println("Price: " + priceTag2.getAttribute("innerHTML"));
         }
-
 
         try {
             sleep(crawlDelay);

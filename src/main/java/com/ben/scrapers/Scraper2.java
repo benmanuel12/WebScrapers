@@ -40,29 +40,27 @@ public class Scraper2 extends Scraper {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        System.out.println("here");
-        List<WebElement> cardList = driver.findElements(By.className(".prod-el__link"));
+        List<WebElement> cardList = driver.findElements(By.className("prod-el__link"));
         for (WebElement card : cardList) {
-            System.out.println("loop");
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.prod-el__image-wrap > img"));
             String src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
-            WebElement nameTag = card.findElement(By.cssSelector("div.prod-el__title > span"));
-            System.out.print("Card name: " + nameTag.getAttribute("innerHTML") + "\n");
+            WebElement nameTag = card.findElement(By.cssSelector("h6.prod-el__title"));
+            WebElement name = nameTag.findElement((By.cssSelector("span")));
+            System.out.println("Card name: " + name.getAttribute("innerHTML"));
 
             // Find the purchase URL
-            System.out.print("Purchase URL: https://www.chaoscards.co.uk/" + card.getAttribute("href") + "\n");
+            System.out.println(card.getAttribute("href"));
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("p.prod-el__pricing"));
-            System.out.print("Price: " + nameTag.getAttribute("innerHTML"));
+            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
 
             // Find the set code
         }
-
 
         try {
             sleep(crawlDelay);

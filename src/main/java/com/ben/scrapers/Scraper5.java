@@ -57,7 +57,7 @@ public class Scraper5 extends Scraper {
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("div.row div.buying-options-container div.buying-options-table div.position-relative div.col-2"));
-            System.out.print("Price: " + nameTag.getAttribute("innerHTML"));
+            System.out.print("Price: " + priceTag.getAttribute("innerHTML"));
 
         }
 
