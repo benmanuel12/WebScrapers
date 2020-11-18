@@ -1,31 +1,32 @@
 package com.ben.scrapers;
 
-import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Main Class
  */
-public class WebScrapers {
+public class Main {
 
     /**
      * Main Method
      * @param args needed for main method
      */
     public static void main(String[] args){
+        System.setProperty("webdriver.chrome.driver", "C:\\ChromeDriver\\chromedriver.exe");
 
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-//        ScraperManager scraperManager = (ScraperManager) context.getBean("manager");
-//        scraperManager.scrape();
+        ScraperManager scraperManager = (ScraperManager) context.getBean("manager");
+        scraperManager.scrape();
+
 //
 //
 //        CardDAO newdao = new CardDAO();
      //   SessionFactory sessionFactory = (SessionFactory) context.getBean("sessionFactory");
 
-        CardDAO cardDAO = (CardDAO) context.getBean("cardDao");
+        //CardDAO cardDAO = (CardDAO) context.getBean("cardDao");
 
 //        //Create an instance of a Card class
 //        CardAnnotation card = new CardAnnotation();
@@ -37,9 +38,12 @@ public class WebScrapers {
 //
 //        cardDAO.addCard(card);
 
-        cardDAO.deleteCard(1);
+        //cardDAO.deleteCard(1);
 
-        cardDAO.shutDown();
-        System.exit(0);
+        //cardDAO.shutDown();
+        //System.exit(0);
+
+        //Scraper1 scraper1 = (Scraper1) context.getBean("scraper1");
+        //scraper1.run();
     }
 }

@@ -36,20 +36,20 @@ public class ScraperManager {
      * Then waits for the threads to end
      */
     public void scrape(){
-        ArrayList<Thread> threads = new ArrayList<>();
+        //ArrayList<Thread> threads = new ArrayList<>();
         for (Scraper currentScraper : scraperList) {
-            Thread newThread = new Thread(currentScraper);
-            threads.add(newThread);
-            newThread.start();
+//            Thread newThread = new Thread(currentScraper);
+//            threads.add(newThread);
+            currentScraper.start();
         }
 
-        try {
-            for (Thread thread : threads) {
-                thread.join();
-            }
-        } catch (InterruptedException ex) {
-            System.out.println("Interrupted Exception");
-        }
+//        try {
+//            for (Thread thread : threads) {
+//                thread.join();
+//            }
+//        } catch (InterruptedException ex) {
+//            System.out.println("Interrupted Exception");
+//        }
 
     }
 }

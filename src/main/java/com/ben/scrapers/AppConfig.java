@@ -10,23 +10,28 @@ import java.util.ArrayList;
 
 
 @Configuration
-public class AppConfig{
+public class AppConfig {
     private SessionFactory sessionFactory;
 
     @Bean
-    public CardDAO cardDao(){
+    public CardDAO cardDAO() {
         CardDAO cardDAO = new CardDAO();
-        //System.out.println("here 3");
         cardDAO.setSessionFactory(sessionFactory());
         return cardDAO;
     }
 
     @Bean
-    public SessionFactory sessionFactory(){
+    public OptionDAO optionDAO() {
+        OptionDAO optionDAO = new OptionDAO();
+        optionDAO.setSessionFactory(sessionFactory());
+        return optionDAO;
+    }
+
+    @Bean
+    public SessionFactory sessionFactory() {
         if (sessionFactory != null) {
             return sessionFactory;
-        }
-        else{
+        } else {
             try {
                 //Create a builder for the standard service registry
                 StandardServiceRegistryBuilder standardServiceRegistryBuilder = new StandardServiceRegistryBuilder();
@@ -41,78 +46,83 @@ public class AppConfig{
                 StandardServiceRegistry registry = standardServiceRegistryBuilder.build();
                 try {
                     //Create the session factory - this is the goal of the init method.
-                    sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+                    sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
                     //System.out.println("here 2");
-                }
-                catch (Exception e) {
+                } catch (Exception e) {
                 /* The registry would be destroyed by the SessionFactory,
                     but we had trouble building the SessionFactory, so destroy it manually */
                     System.err.println("Session Factory build failed.");
                     e.printStackTrace();
-                    StandardServiceRegistryBuilder.destroy( registry );
+                    StandardServiceRegistryBuilder.destroy(registry);
                 }
 
                 //Output result
                 System.out.println("Session factory built.");
 
-            }
-            catch (Throwable ex) {
+            } catch (Throwable ex) {
                 // Make sure you log the exception, as it might be swallowed
                 System.err.println("SessionFactory creation failed: " + ex);
             }
             return sessionFactory;
         }
     }
-    // This code just uses the ScraperManager and Scraper classes to prove the Spring beans works
-    // Must be replaced with proper Beans later
-    /*
+
+
     @Bean
-    public ScraperManager manager(){
+    public ScraperManager manager() {
         ScraperManager manager = new ScraperManager();
         ArrayList<Scraper> temp = new ArrayList<>();
-        temp.add(scraper1());
-        temp.add(scraper2());
-        temp.add(scraper3());
-        temp.add(scraper4());
+        //temp.add(scraper1());
+        //temp.add(scraper2());
+        //temp.add(scraper3());
+        //temp.add(scraper4());
         temp.add(scraper5());
         manager.setScraperList(temp);
         return manager;
     }
 
     @Bean
-    public Scraper scraper1(){
-        Scraper scraper = new Scraper();
-        scraper.setName("Magic Madhouse");
-        return scraper;
+    public Scraper1 scraper1() {
+        Scraper1 scraper1 = new Scraper1();
+        scraper1.setName("Magic Madhouse");
+        scraper1.setCardDAO(cardDAO());
+        scraper1.setOptionDAO(optionDAO());
+        return scraper1;
     }
 
     @Bean
-    public Scraper scraper2(){
-        Scraper scraper = new Scraper();
-        scraper.setName("Chaos Cards");
-        return scraper;
+    public Scraper2 scraper2() {
+        Scraper2 scraper2 = new Scraper2();
+        scraper2.setName("Chaos Cards");
+        scraper2.setCardDAO(cardDAO());
+        scraper2.setOptionDAO(optionDAO());
+        return scraper2;
     }
 
     @Bean
-    public Scraper scraper3(){
-        Scraper scraper = new Scraper();
-        scraper.setName("Card Kingdom");
-        return scraper;
+    public Scraper3 scraper3() {
+        Scraper3 scraper3 = new Scraper3();
+        scraper3.setName("Card Kingdom");
+        scraper3.setCardDAO(cardDAO());
+        scraper3.setOptionDAO(optionDAO());
+        return scraper3;
     }
 
     @Bean
-    public Scraper scraper4(){
-        Scraper scraper = new Scraper();
-        scraper.setName("TCG Player");
-        return scraper;
+    public Scraper4 scraper4(){
+        Scraper4 scraper4 = new Scraper4();
+        scraper4.setName("TCG Player");
+        scraper4.setCardDAO(cardDAO());
+        scraper4.setOptionDAO(optionDAO());
+        return scraper4;
     }
 
     @Bean
-    public Scraper scraper5(){
-        Scraper scraper = new Scraper();
-        scraper.setName("Troll and Toad");
-        return scraper;
+    public Scraper5 scraper5() {
+        Scraper5 scraper5 = new Scraper5();
+        scraper5.setName("Troll and Toad");
+        scraper5.setCardDAO(cardDAO());
+        scraper5.setOptionDAO(optionDAO());
+        return scraper5;
     }
-
-     */
 }

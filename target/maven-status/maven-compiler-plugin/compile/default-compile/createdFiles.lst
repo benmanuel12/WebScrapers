@@ -1,8 +1,13 @@
 com\ben\scrapers\ScraperManager.class
-com\ben\scrapers\CardDAO.class
-com\ben\scrapers\WebScrapers.class
+com\ben\scrapers\Main.class
 com\ben\scrapers\CardAnnotation.class
 com\ben\scrapers\OptionDAO.class
+com\ben\scrapers\Scraper5.class
 com\ben\scrapers\OptionAnnotation.class
+com\ben\scrapers\Scraper1.class
+com\ben\scrapers\Scraper4.class
 com\ben\scrapers\AppConfig.class
 com\ben\scrapers\Scraper.class
+com\ben\scrapers\Scraper3.class
+com\ben\scrapers\CardDAO.class
+com\ben\scrapers\Scraper2.class
