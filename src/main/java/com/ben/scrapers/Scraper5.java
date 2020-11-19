@@ -44,12 +44,8 @@ public class Scraper5 extends Scraper {
         List<WebElement> cardList = driver.findElements(By.xpath("//div[@class='card h-100 p-3']"));
         for (WebElement card : cardList) {
             // Find the picture
-            WebElement imageTag = card.findElement(By.cssSelector("div.row"));
-            WebElement imageTag1 = imageTag.findElement(By.cssSelector("div.prod-img-container"));
-            WebElement imageTag2 = imageTag1.findElement(By.cssSelector("a"));
-            WebElement imageTag3 = imageTag2.findElement(By.cssSelector("img"));
-
-            String src = imageTag3.getAttribute("src");
+            WebElement imageTag = card.findElement(By.cssSelector("div.row div.prod-img-container a img"));
+            String src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name

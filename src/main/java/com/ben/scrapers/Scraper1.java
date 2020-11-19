@@ -61,17 +61,10 @@ public class Scraper1 extends Scraper {
             System.out.println("Purchase URL: " + nameTag.getAttribute("href"));
 
             // Find the price
-            WebElement priceTag1 = card.findElement(By.cssSelector("div.product__details__holder"));
-            //System.out.println("Got priceTag1");
-            WebElement priceTag0 = priceTag1.findElement(By.cssSelector("div.product__options"));
-            //System.out.println("Got priceTag0");
-            WebElement priceTag7 = priceTag0.findElement(By.cssSelector("div.product__details__prices"));
-            //System.out.println("Got priceTag7");
-            WebElement priceTag2 = priceTag7.findElement(By.cssSelector("span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
-            //System.out.println("Got priceTag2");
-            System.out.println("Price: " + priceTag2.getAttribute("innerHTML"));
+            WebElement priceTag = card.findElement(By.cssSelector("div.product__details__holder div.product__options div.product__details__prices span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
+            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
 
-            // Find the setcode
+            // Find the set code
             if ((name.indexOf('(') != -1) && (name.indexOf(')') != -1)) {
                 String code = name.substring(name.indexOf('(') + 2, name.indexOf(')'));
                 System.out.println("Set code: " + code);

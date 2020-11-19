@@ -72,8 +72,8 @@ public class AppConfig {
     public ScraperManager manager() {
         ScraperManager manager = new ScraperManager();
         ArrayList<Scraper> temp = new ArrayList<>();
-        //temp.add(scraper1());
-        temp.add(scraper2());
+        temp.add(scraper1());
+        //temp.add(scraper2());
         //temp.add(scraper3());
         //temp.add(scraper4());
         //temp.add(scraper5());
