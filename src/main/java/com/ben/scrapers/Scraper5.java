@@ -41,28 +41,43 @@ public class Scraper5 extends Scraper {
             ex.printStackTrace();
         }
 
-        List<WebElement> cardList = driver.findElements(By.className("card"));
+        List<WebElement> cardList = driver.findElements(By.xpath("//div[@class='card h-100 p-3']"));
         for (WebElement card : cardList) {
             // Find the picture
-            WebElement imageTag = card.findElement(By.cssSelector("div.row > div.prod-img-container a img"));
-            String src = imageTag.getAttribute("src");
+            WebElement imageTag = card.findElement(By.cssSelector("div.row"));
+            WebElement imageTag1 = imageTag.findElement(By.cssSelector("div.prod-img-container"));
+            WebElement imageTag2 = imageTag1.findElement(By.cssSelector("a"));
+            WebElement imageTag3 = imageTag2.findElement(By.cssSelector("img"));
+
+            String src = imageTag3.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.row div.product-info div.mb-1 div.prod-title a"));
-            System.out.print("Card name: " + nameTag.getAttribute("innerHTML") + "\n");
+            String name = nameTag.getAttribute("innerHTML");
+            String newName = name.substring(0, name.indexOf('/') - 4);
+            if (newName.indexOf('-') != -1) {
+                newName = newName.substring(0, newName.indexOf('-') - 1);
+            }
+            System.out.println("Card name: " + newName);
 
             // Find the purchase URL
-            System.out.print("Purchase URL: https://www.trollandtoad.com/" + nameTag.getAttribute("href") + "\n");
+            System.out.println("Purchase URL: https://www.trollandtoad.com/" + nameTag.getAttribute("href"));
 
             // Find the price
-            WebElement priceTag = card.findElement(By.cssSelector("div.row div.buying-options-container div.buying-options-table div.position-relative div.col-2"));
-            System.out.print("Price: " + priceTag.getAttribute("innerHTML"));
+            WebElement priceTag = card.findElement(By.xpath("/html/body/main/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div[3]/div/div[2]/div[4]"));
+            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+
+            // Find the set code
+            int myIndex = name.indexOf('/');
+            String code = name.substring(myIndex - 3, myIndex);
+            System.out.println("Set code: " + code);
 
         }
 
 
         try {
+            System.out.println("Sleeping");
             sleep(crawlDelay);
         } catch (Exception ex) {
             ex.printStackTrace();

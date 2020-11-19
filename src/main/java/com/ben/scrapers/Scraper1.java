@@ -49,7 +49,13 @@ public class Scraper1 extends Scraper {
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.product__details__holder div.product__details div.product__details__title a"));
-            System.out.println("Card name: " + nameTag.getAttribute("title"));
+            String name = nameTag.getAttribute("title");
+            if (name.indexOf('(') != -1) {
+                String newName = name.substring(0, name.indexOf('('));
+                System.out.println("New Card name: " + newName);
+            }
+            System.out.println("Old Card name: " + name);
+
 
             // Find the purchase URL
             System.out.println("Purchase URL: " + nameTag.getAttribute("href"));
@@ -64,9 +70,16 @@ public class Scraper1 extends Scraper {
             WebElement priceTag2 = priceTag7.findElement(By.cssSelector("span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
             //System.out.println("Got priceTag2");
             System.out.println("Price: " + priceTag2.getAttribute("innerHTML"));
+
+            // Find the setcode
+            if ((name.indexOf('(') != -1) && (name.indexOf(')') != -1)) {
+                String code = name.substring(name.indexOf('(') + 2, name.indexOf(')'));
+                System.out.println("Set code: " + code);
+            }
         }
 
         try {
+            System.out.println("Sleeping");
             sleep(crawlDelay);
         } catch (Exception ex) {
             ex.printStackTrace();

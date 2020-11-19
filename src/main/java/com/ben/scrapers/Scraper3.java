@@ -41,7 +41,7 @@ public class Scraper3 extends Scraper {
             ex.printStackTrace();
         }
 
-        List<WebElement> cardList = driver.findElements(By.className(".productItemWrapper"));
+        List<WebElement> cardList = driver.findElements(By.className("productItemWrapper"));
         for (WebElement card : cardList) {
 
             // Find the picture
@@ -54,15 +54,16 @@ public class Scraper3 extends Scraper {
             System.out.print("Card name: " + nameTag.getAttribute("innerHTML") + "\n");
 
             // Find the purchase URL
-            System.out.print("Purchase URL: https://www.cardkingdom.com/" + nameTag.getAttribute("href") + "\n");
+            System.out.print("Purchase URL: " + nameTag.getAttribute("href") + "\n");
 
             // Find the price
-            WebElement priceTag = card.findElement(By.cssSelector("div.itemContentWrapper div.addToCartWrapper ul.addToCardByType li.itemAddToCart form div.amtAndPrice span.stylePrice"));
-            System.out.print("Price: " + nameTag.getAttribute("innerHTML"));
+            WebElement priceTag = card.findElement(By.cssSelector("div.itemContentWrapper div.addToCartWrapper ul.addToCartByType li.itemAddToCart form.addToCartForm div.amtAndPrice span.stylePrice"));
+            System.out.print("Price: " + priceTag.getAttribute("innerHTML"));
         }
 
 
         try {
+            System.out.println("Sleeping");
             sleep(crawlDelay);
         } catch (Exception ex) {
             ex.printStackTrace();

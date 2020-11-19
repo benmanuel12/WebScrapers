@@ -33,7 +33,7 @@ public class Scraper4 extends Scraper {
         stop = false;
 
 
-        driver.get("https://www.tcgplayer.com/search/magic/zendikar-rising?productLineName=magic&setName=zendikar-rising&page=1&productTypeName=Cards");
+        driver.get("https://www.tcgplayer.com/search/magic/zendikar-rising?productLineName=magic&setName=zendikar-rising&page=1&productTypeName=Cards&rarityName=Rare%7CCommon%7CUncommon%7CMythic%7CLand");
 
         try {
             sleep(loadDelay);
@@ -41,7 +41,7 @@ public class Scraper4 extends Scraper {
             ex.printStackTrace();
         }
 
-        List<WebElement> cardList = driver.findElements(By.className("a.search-result__product"));
+        List<WebElement> cardList = driver.findElements(By.className("search-result__product"));
         for (WebElement card : cardList) {
 
             // Find the picture
@@ -51,18 +51,23 @@ public class Scraper4 extends Scraper {
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("span.search-result__title"));
-            System.out.print("Card name: " + nameTag.getAttribute("innerHTML") + "\n");
+            System.out.println("Card name: " + nameTag.getAttribute("innerHTML"));
 
             // Find the purchase URL
-            System.out.print(card.getAttribute("href") + "\n");
+            System.out.println(card.getAttribute("href"));
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("section.search-result__market-price span.search-result__market-price--value"));
-            System.out.print("Price: " + nameTag.getAttribute("innerHTML"));
+            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+
+            // Find the set code
+            WebElement codeTag = card.findElement(By.xpath("//*[@id=\"app\"]/div/section[2]/section/section/span/section/div[2]/div/a[1]/section[2]/span[3]"));
+            System.out.println("Code: " + codeTag.getAttribute("innerHTML").substring(1));
         }
 
 
         try {
+            System.out.println("Sleeping");
             sleep(crawlDelay);
         } catch (Exception ex) {
             ex.printStackTrace();

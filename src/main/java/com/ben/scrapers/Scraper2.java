@@ -33,7 +33,7 @@ public class Scraper2 extends Scraper {
         stop = false;
 
 
-        driver.get("https://www.chaoscards.co.uk/shop/magic-the-gathering/singles-magic/brand/magic-the-gathering/edition-magic/zendikar-rising");
+        driver.get("https://www.chaoscards.co.uk/shop/magic-the-gathering/singles-magic/brand/magic-the-gathering/edition-magic/zendikar-rising/page/30");
 
         try {
             sleep(loadDelay);
@@ -49,8 +49,16 @@ public class Scraper2 extends Scraper {
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("h6.prod-el__title"));
-            WebElement name = nameTag.findElement((By.cssSelector("span")));
-            System.out.println("Card name: " + name.getAttribute("innerHTML"));
+            WebElement nameSpan = nameTag.findElement((By.cssSelector("span")));
+            String name = nameSpan.getAttribute("innerHTML");
+            if (name.indexOf('(') != -1) {
+                String newName = name.substring(0, name.indexOf('('));
+                System.out.println("New Card name: " + newName);
+            } else {
+                String newName = name.substring(0, name.indexOf(" :"));
+                System.out.println("New Card name: " + newName);
+            }
+            System.out.println("Card name: " + name);
 
             // Find the purchase URL
             System.out.println(card.getAttribute("href"));
@@ -60,9 +68,15 @@ public class Scraper2 extends Scraper {
             System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
 
             // Find the set code
+            String code = name.substring(name.indexOf("ZENDIKAR RISING ") + 16, name.indexOf("- Magic the Gathering Single Card") - 1);
+            code = code.substring(0, code.indexOf('/'));
+            System.out.println("Set Code: " + code);
+
+
         }
 
         try {
+            System.out.println("Sleeping");
             sleep(crawlDelay);
         } catch (Exception ex) {
             ex.printStackTrace();
