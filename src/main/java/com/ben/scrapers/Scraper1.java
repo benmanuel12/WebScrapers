@@ -42,33 +42,69 @@ public class Scraper1 extends Scraper {
 
         List<WebElement> cardList = driver.findElements(By.className("product"));
         for (WebElement card : cardList) {
+            String src;
+            String name;
+            String purchaseUrl;
+            String price;
+            int code;
+
+
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.product__image a img"));
-            String src = imageTag.getAttribute("data-src");
+            src = imageTag.getAttribute("data-src");
             System.out.println("Image source: https://www.magicmadhouse.co.uk" + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.product__details__holder div.product__details div.product__details__title a"));
-            String name = nameTag.getAttribute("title");
+            name = nameTag.getAttribute("title");
             if (name.indexOf('(') != -1) {
-                String newName = name.substring(0, name.indexOf('('));
-                System.out.println("New Card name: " + newName);
+                name = name.substring(0, name.indexOf('('));
             }
-            System.out.println("Old Card name: " + name);
+            System.out.println("Card name: " + name);
 
 
             // Find the purchase URL
-            System.out.println("Purchase URL: " + nameTag.getAttribute("href"));
+            purchaseUrl = nameTag.getAttribute("href");
+            System.out.println("Purchase URL: " + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("div.product__details__holder div.product__options div.product__details__prices span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
-            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+            price = priceTag.getAttribute("innerHTML");
+            System.out.println("Price: " + price);
 
             // Find the set code
             if ((name.indexOf('(') != -1) && (name.indexOf(')') != -1)) {
-                String code = name.substring(name.indexOf('(') + 2, name.indexOf(')'));
+                code = Integer.valueOf(name.substring(name.indexOf('(') + 2, name.indexOf(')')));
                 System.out.println("Set code: " + code);
             }
+
+            // Add to database if required
+
+
+            List searchForName = cardDAO.searchCards("from CardAnnotation where card_name=" + name);
+            if (searchForName.isEmpty()) {
+                CardAnnotation newCard = new CardAnnotation();
+                newCard.setCardName(name);
+                newCard.setImageUrl(src);
+                newCard.setCard_set_code(code);
+
+                cardDAO.addCard(newCard);
+            }
+            List searchForIDCard = cardDAO.searchCards("select id from CardAnnotation where cardName=" + name);
+            List searchForIDOption = optionDAO.searchOptions("from OptionAnnotation where id=" + searchForIDCard.get(0)); //add shopname
+            if (searchForIDOption.isEmpty()) {
+                OptionAnnotation newOption = new OptionAnnotation();
+                newOption.setCardId((CardAnnotation) searchForIDCard.get(0));
+                newOption.setLink(purchaseUrl);
+                newOption.setPrice(Float.parseFloat(price));
+                newOption.setShopName("Magic Madhouse");
+
+                optionDAO.addOption(newOption);
+            }
+
+
+
+
         }
 
         try {

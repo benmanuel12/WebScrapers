@@ -1,9 +1,34 @@
 For each new product
+
+
 if no card exists in cards table with that name
     create a new CardAnnotation from name, image and set code (if availible)
     push to database
 if no option exists in option table from that site with that cardID
     create a new OptionAnnotation from cardID, image, price and link
     push to database
-else (card already in database and option also already in database)
+else if (card already in database and option also already in database and new price is different)
     fetch that option and update it's price
+
+else
+   do nothing
+
+
+add scraper name to scrapers
+
+make this a function in superclasd
+
+for each card
+    if new card {
+        add to database
+    }
+
+    if new option {
+        fetch card id from card table
+        add to database
+    } else {
+        if price is different
+            update
+        else
+            do nothing
+    }

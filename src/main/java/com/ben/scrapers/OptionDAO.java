@@ -4,6 +4,8 @@ package com.ben.scrapers;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class OptionDAO {
     //Creates new Sessions when we need to interact with the database
     private SessionFactory sessionFactory;
@@ -78,6 +80,26 @@ public class OptionDAO {
         session.close();
         return option;
     }
+
+    /** Returns all options from the database that fit the query */
+    public List<OptionAnnotation> searchOptions(String query){
+
+        //Get a new Session instance from the session factory
+        if(sessionFactory == null)
+            System.out.println("session factory is null");
+
+        Session session = sessionFactory.getCurrentSession();
+
+        //Start transaction
+        session.beginTransaction();
+
+        List<OptionAnnotation> optionList = session.createQuery(query).getResultList();
+
+        //Close the session and release database connection
+        session.close();
+        return optionList;
+    }
+
     /** Deletes a option from the database */
     public void deleteOptions(int id){
         //Get a new Session instance from the session factory

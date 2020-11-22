@@ -4,6 +4,8 @@ package com.ben.scrapers;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 public class CardDAO {
     //Creates new Sessions when we need to interact with the database
     private SessionFactory sessionFactory;
@@ -67,7 +69,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
-        //Add Card to database - will not be stored until we commit the transaction
+        //Get Card from database - will not be stored until we commit the transaction
         CardAnnotation card = session.load(CardAnnotation.class, id);
 
         //Commit transaction to save it to database
@@ -77,6 +79,26 @@ public class CardDAO {
         session.close();
         return card;
     }
+
+    /** Returns all cards from the database that fit the query */
+    public List<CardAnnotation> searchCards(String query){
+
+        //Get a new Session instance from the session factory
+        if(sessionFactory == null)
+            System.out.println("session factory is null");
+
+        Session session = sessionFactory.getCurrentSession();
+
+        //Start transaction
+        session.beginTransaction();
+
+        List<CardAnnotation> cardList = session.createQuery(query).getResultList();
+
+        //Close the session and release database connection
+        session.close();
+        return cardList;
+    }
+
     /** Deletes a card from the database */
     public void deleteCard(int id){
         //Get a new Session instance from the session factory
