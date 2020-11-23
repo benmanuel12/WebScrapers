@@ -43,22 +43,32 @@ public class Scraper3 extends Scraper {
 
         List<WebElement> cardList = driver.findElements(By.className("productItemWrapper"));
         for (WebElement card : cardList) {
+            String src;
+            String cardName;
+            String purchaseUrl;
+            double price;
+            int code;
 
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.catalogItem a img"));
-            String src = imageTag.getAttribute("src");
+            src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.itemContentWrapper table tbody tr.detailWrapper td span a"));
-            System.out.print("Card name: " + nameTag.getAttribute("innerHTML") + "\n");
+            cardName = nameTag.getAttribute("innerHTML");
+            System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
-            System.out.print("Purchase URL: " + nameTag.getAttribute("href") + "\n");
+            purchaseUrl = nameTag.getAttribute("href");
+            System.out.println("Purchase URL: " + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("div.itemContentWrapper div.addToCartWrapper ul.addToCartByType li.itemAddToCart form.addToCartForm div.amtAndPrice span.stylePrice"));
-            System.out.print("Price: " + priceTag.getAttribute("innerHTML"));
+            price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
+            price = price * 0.75;
+            price = Math.round(price*100)/100;
+            System.out.println("Price: " + price);
         }
 
 

@@ -33,7 +33,7 @@ public class Scraper2 extends Scraper {
         stop = false;
 
 
-        driver.get("https://www.chaoscards.co.uk/shop/magic-the-gathering/singles-magic/brand/magic-the-gathering/edition-magic/zendikar-rising/page/30");
+        driver.get("https://www.chaoscards.co.uk/shop/magic-the-gathering/singles-magic/brand/magic-the-gathering/edition-magic/zendikar-rising");
 
         try {
             sleep(loadDelay);
@@ -42,34 +42,43 @@ public class Scraper2 extends Scraper {
         }
         List<WebElement> cardList = driver.findElements(By.className("prod-el__link"));
         for (WebElement card : cardList) {
+            String src;
+            String cardName;
+            String purchaseUrl;
+            double price;
+            int code;
+
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.prod-el__image-wrap > img"));
-            String src = imageTag.getAttribute("src");
+            src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("h6.prod-el__title"));
             WebElement nameSpan = nameTag.findElement((By.cssSelector("span")));
-            String name = nameSpan.getAttribute("innerHTML");
-            if (name.indexOf('(') != -1) {
-                String newName = name.substring(0, name.indexOf('('));
-                System.out.println("New Card name: " + newName);
+            String longName = nameSpan.getAttribute("innerHTML");
+            if (longName.indexOf('(') != -1) {
+                cardName = longName.substring(0, longName.indexOf('('));
             } else {
-                String newName = name.substring(0, name.indexOf(" :"));
-                System.out.println("New Card name: " + newName);
+                cardName = longName.substring(0, longName.indexOf(" :"));
             }
-            System.out.println("Card name: " + name);
+            System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
-            System.out.println(card.getAttribute("href"));
+            purchaseUrl = card.getAttribute("href");
+            System.out.println(purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("p.prod-el__pricing"));
-            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+            price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
+            System.out.println("Price: " + price);
 
             // Find the set code
-            String code = name.substring(name.indexOf("ZENDIKAR RISING ") + 16, name.indexOf("- Magic the Gathering Single Card") - 1);
-            code = code.substring(0, code.indexOf('/'));
+            String codeString = longName.substring(longName.indexOf("ZENDIKAR RISING ") + 16, longName.indexOf("- Magic the Gathering Single Card") - 1);
+            if (codeString.indexOf('/') != -1) {
+                codeString = codeString.substring(0, codeString.indexOf('/'));
+            }
+            code = Integer.parseInt(codeString);
             System.out.println("Set Code: " + code);
 
 

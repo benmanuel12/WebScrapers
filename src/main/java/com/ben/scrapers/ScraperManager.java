@@ -40,6 +40,7 @@ public class ScraperManager {
         for (Scraper currentScraper : scraperList) {
 //            Thread newThread = new Thread(currentScraper);
 //            threads.add(newThread);
+            System.out.println(currentScraper.getName() + " is scraping");
             currentScraper.start();
         }
 

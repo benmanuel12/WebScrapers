@@ -42,31 +42,43 @@ public class Scraper5 extends Scraper {
         }
 
         List<WebElement> cardList = driver.findElements(By.xpath("//div[@class='card h-100 p-3']"));
+        String src;
+        String cardName;
+        String purchaseUrl;
+        double price;
+        int code;
+
         for (WebElement card : cardList) {
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.row div.prod-img-container a img"));
-            String src = imageTag.getAttribute("src");
+            src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.row div.product-info div.mb-1 div.prod-title a"));
-            String name = nameTag.getAttribute("innerHTML");
-            String newName = name.substring(0, name.indexOf('/') - 4);
-            if (newName.indexOf('-') != -1) {
-                newName = newName.substring(0, newName.indexOf('-') - 1);
+            String longName = nameTag.getAttribute("innerHTML");
+            cardName = longName.substring(0, longName.indexOf('/') - 4);
+            if (cardName.indexOf('-') != -1) {
+                cardName = cardName.substring(0, cardName.indexOf('-') - 1);
             }
-            System.out.println("Card name: " + newName);
+            System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
-            System.out.println("Purchase URL: https://www.trollandtoad.com/" + nameTag.getAttribute("href"));
+            purchaseUrl = nameTag.getAttribute("href");
+            System.out.println("Purchase URL: https://www.trollandtoad.com/" + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.xpath("/html/body/main/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div[3]/div/div[2]/div[4]"));
-            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+            price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(1));
+            price = price * 0.75;
+            price = Math.round(price*100)/100;
+            System.out.println("Price: " + price);
 
             // Find the set code
-            int myIndex = name.indexOf('/');
-            String code = name.substring(myIndex - 3, myIndex);
+            int myIndex = longName.indexOf('/');
+            String codeString = longName.substring(0, myIndex);
+            codeString = codeString.substring(codeString.lastIndexOf(' ') + 1);
+            code = Integer.parseInt(codeString);
             System.out.println("Set code: " + code);
 
         }

@@ -43,26 +43,38 @@ public class Scraper4 extends Scraper {
 
         List<WebElement> cardList = driver.findElements(By.className("search-result__product"));
         for (WebElement card : cardList) {
+            String src;
+            String cardName;
+            String purchaseUrl;
+            double price;
+            int code;
 
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("section.search-result__image > div.progressive-image > span > div.progressive-image-wrapper > img"));
-            String src = imageTag.getAttribute("src");
+            src = imageTag.getAttribute("src");
             System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("span.search-result__title"));
-            System.out.println("Card name: " + nameTag.getAttribute("innerHTML"));
+            cardName = nameTag.getAttribute("innerHTML");
+            System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
-            System.out.println(card.getAttribute("href"));
+            purchaseUrl = card.getAttribute("href");
+            System.out.println(purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("section.search-result__market-price span.search-result__market-price--value"));
-            System.out.println("Price: " + priceTag.getAttribute("innerHTML"));
+            price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
+            price = price * 0.75;
+            price = Math.round(price*100)/100;
+            System.out.println("Price: " + price);
 
             // Find the set code
             WebElement codeTag = card.findElement(By.xpath("//*[@id=\"app\"]/div/section[2]/section/section/span/section/div[2]/div/a[1]/section[2]/span[3]"));
-            System.out.println("Code: " + codeTag.getAttribute("innerHTML").substring(1));
+            String codeString = codeTag.getAttribute("innerHTML").substring(1);
+            code = Integer.parseInt(codeString);
+            System.out.println("Code: " + code);
         }
 
 
