@@ -22,7 +22,7 @@ public class OptionAnnotation {
     private CardAnnotation cardId;
 
     @Column(name = "price")
-    private float price;
+    private double price;
 
     @Column(name = "link")
     private String link;
@@ -54,11 +54,11 @@ public class OptionAnnotation {
         this.cardId = cardId;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

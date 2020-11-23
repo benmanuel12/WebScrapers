@@ -51,8 +51,8 @@ public class Scraper1 extends Scraper {
 
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.product__image a img"));
-            src = imageTag.getAttribute("data-src");
-            System.out.println("Image source: https://www.magicmadhouse.co.uk" + src);
+            src = "https://www.magicmadhouse.co.uk/" + imageTag.getAttribute("data-src");
+            //System.out.println("Image source: https://www.magicmadhouse.co.uk" + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.product__details__holder div.product__details div.product__details__title a"));
@@ -60,29 +60,29 @@ public class Scraper1 extends Scraper {
             if (cardName.indexOf('(') != -1) {
                 cardName = cardName.substring(0, cardName.indexOf('('));
             }
-            System.out.println("Card name: " + cardName);
+            //System.out.println("Card name: " + cardName);
 
 
             // Find the purchase URL
             purchaseUrl = nameTag.getAttribute("href");
-            System.out.println("Purchase URL: " + purchaseUrl);
+            //System.out.println("Purchase URL: " + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("div.product__details__holder div.product__options div.product__details__prices span.product__details__prices__price > span > span.product-content__price--inc > span.GBP"));
             price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(1));
-            System.out.println("Price: " + price);
+            //System.out.println("Price: " + price);
 
             // Find the set code
             if ((cardName.indexOf('(') != -1) && (cardName.indexOf(')') != -1)) {
                 code = Integer.valueOf(cardName.substring(cardName.indexOf('(') + 2, cardName.indexOf(')')));
-                System.out.println("Set code: " + code);
+                //System.out.println("Set code: " + code);
             } else {
                 code = 0;
             }
 
             // Add to database if required
-//            updateDatabase(name, cardName, src, purchaseUrl, price, code);
-//
+            updateDatabase(this.getName(), cardName, src, purchaseUrl, price, code);
+
             }
 
         try {

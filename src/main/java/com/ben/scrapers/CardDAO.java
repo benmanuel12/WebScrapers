@@ -92,6 +92,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
+
         List<CardAnnotation> cardList = session.createQuery(query).getResultList();
 
         //Close the session and release database connection
