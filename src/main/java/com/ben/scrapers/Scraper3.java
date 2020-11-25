@@ -27,7 +27,7 @@ public class Scraper3 extends Scraper {
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
@@ -47,28 +47,31 @@ public class Scraper3 extends Scraper {
             String cardName;
             String purchaseUrl;
             double price;
-            int code;
+            int code = 0;
+            // No easy way to extract set code from this site, sadly
 
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.catalogItem a img"));
             src = imageTag.getAttribute("src");
-            System.out.println("Image source: " + src);
+            //System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.itemContentWrapper table tbody tr.detailWrapper td span a"));
             cardName = nameTag.getAttribute("innerHTML");
-            System.out.println("Card name: " + cardName);
+            //System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
             purchaseUrl = nameTag.getAttribute("href");
-            System.out.println("Purchase URL: " + purchaseUrl);
+            //System.out.println("Purchase URL: " + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("div.itemContentWrapper div.addToCartWrapper ul.addToCartByType li.itemAddToCart form.addToCartForm div.amtAndPrice span.stylePrice"));
             price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
-            price = price * 0.75;
-            price = Math.round(price*100)/100;
-            System.out.println("Price: " + price);
+            price = toPounds(price);
+            //System.out.println("Price: " + price);
+
+            // Add to database if required
+            updateDatabase(this.getName(), cardName, src, purchaseUrl, price, code);
         }
 
 

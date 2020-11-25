@@ -27,11 +27,11 @@ public class Scraper1 extends Scraper {
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
-while (runThread){
+
         driver.get("https://www.magicmadhouse.co.uk/magic-the-gathering-c1#t10659:t10778:t10779:t10780:t85:t86:t10781");
 
         try {
@@ -56,9 +56,11 @@ while (runThread){
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.product__details__holder div.product__details div.product__details__title a"));
-            cardName = nameTag.getAttribute("title");
-            if (cardName.indexOf('(') != -1) {
-                cardName = cardName.substring(0, cardName.indexOf('('));
+            String longName = nameTag.getAttribute("title");
+            if (longName.indexOf('(') != -1) {
+                cardName = longName.substring(0, longName.indexOf('('));
+            } else {
+                cardName = longName;
             }
             //System.out.println("Card name: " + cardName);
 
@@ -73,9 +75,9 @@ while (runThread){
             //System.out.println("Price: " + price);
 
             // Find the set code
-            if ((cardName.indexOf('(') != -1) && (cardName.indexOf(')') != -1)) {
-                code = Integer.valueOf(cardName.substring(cardName.indexOf('(') + 2, cardName.indexOf(')')));
-                //System.out.println("Set code: " + code);
+            if ((longName.indexOf('(') != -1) && (longName.indexOf(')') != -1)) {
+                code = Integer.valueOf(longName.substring(longName.indexOf('(') + 2, longName.indexOf(')')));
+                System.out.println("Set code: " + code);
             } else {
                 code = 0;
             }
@@ -91,14 +93,11 @@ while (runThread){
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-/*
-            Scanner input = new Scanner(System.in);
-            if (input.next() == " ") {
-                stop = true;
-            }
-        }
-*/
-}
+
+//            Scanner input = new Scanner(System.in);
+//            if (input.next() == " ") {
+//                stop = true;
+//            }
         driver.quit();
     }
 }

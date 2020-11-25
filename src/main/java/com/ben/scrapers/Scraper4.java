@@ -27,7 +27,7 @@ public class Scraper4 extends Scraper {
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
@@ -52,29 +52,36 @@ public class Scraper4 extends Scraper {
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("section.search-result__image > div.progressive-image > span > div.progressive-image-wrapper > img"));
             src = imageTag.getAttribute("src");
-            System.out.println("Image source: " + src);
+            //System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("span.search-result__title"));
-            cardName = nameTag.getAttribute("innerHTML");
-            System.out.println("Card name: " + cardName);
+            String longName = nameTag.getAttribute("innerHTML").substring(1);
+            if (longName.indexOf('(') != -1) {
+                cardName = longName.substring(0, longName.indexOf('('));
+            } else {
+                cardName = longName;
+            }
+            //System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
             purchaseUrl = card.getAttribute("href");
-            System.out.println(purchaseUrl);
+            //System.out.println(purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("section.search-result__market-price span.search-result__market-price--value"));
             price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
-            price = price * 0.75;
-            price = Math.round(price*100)/100;
-            System.out.println("Price: " + price);
+            price = toPounds(price);
+            //System.out.println("Price: " + price);
 
             // Find the set code
-            WebElement codeTag = card.findElement(By.xpath("//*[@id=\"app\"]/div/section[2]/section/section/span/section/div[2]/div/a[1]/section[2]/span[3]"));
-            String codeString = codeTag.getAttribute("innerHTML").substring(1);
+            List <WebElement> codeTags = card.findElements(By.cssSelector("section.search-result__rarity span"));
+            String codeString = codeTags.get(2).getAttribute("innerHTML").substring(1);
             code = Integer.parseInt(codeString);
-            System.out.println("Code: " + code);
+            //System.out.println("Code: " + code);
+
+            // Add to database if required
+            updateDatabase(this.getName(), cardName, src, purchaseUrl, price, code);
         }
 
 

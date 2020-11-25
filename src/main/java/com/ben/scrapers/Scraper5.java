@@ -27,7 +27,7 @@ public class Scraper5 extends Scraper {
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
@@ -52,7 +52,7 @@ public class Scraper5 extends Scraper {
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.row div.prod-img-container a img"));
             src = imageTag.getAttribute("src");
-            System.out.println("Image source: " + src);
+            //System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("div.row div.product-info div.mb-1 div.prod-title a"));
@@ -61,25 +61,27 @@ public class Scraper5 extends Scraper {
             if (cardName.indexOf('-') != -1) {
                 cardName = cardName.substring(0, cardName.indexOf('-') - 1);
             }
-            System.out.println("Card name: " + cardName);
+            //System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
             purchaseUrl = nameTag.getAttribute("href");
-            System.out.println("Purchase URL: https://www.trollandtoad.com/" + purchaseUrl);
+            //System.out.println("Purchase URL: https://www.trollandtoad.com/" + purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.xpath("/html/body/main/div/div/div/div[2]/div[2]/div[2]/div/div[1]/div/div/div[3]/div/div[2]/div[4]"));
             price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(1));
-            price = price * 0.75;
-            price = Math.round(price*100)/100;
-            System.out.println("Price: " + price);
+            price = toPounds(price);
+            //System.out.println("Price: " + price);
 
             // Find the set code
             int myIndex = longName.indexOf('/');
             String codeString = longName.substring(0, myIndex);
             codeString = codeString.substring(codeString.lastIndexOf(' ') + 1);
             code = Integer.parseInt(codeString);
-            System.out.println("Set code: " + code);
+            //System.out.println("Set code: " + code);
+
+            // Add to database if required
+            updateDatabase(this.getName(), cardName, src, purchaseUrl, price, code);
 
         }
 

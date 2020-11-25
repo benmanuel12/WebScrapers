@@ -4,6 +4,8 @@ import java.util.List;
 
 public abstract class Scraper extends Thread{
 
+    final protected double EXCHANGE_RATE = 0.75;
+
     protected int crawlDelay = 11000;
 
     protected int loadDelay = 5000;
@@ -46,6 +48,12 @@ public abstract class Scraper extends Thread{
         return newString;
     }
 
+    public double toPounds(double input){
+        String intermediate = String.format("%.2f", (input * EXCHANGE_RATE));
+        double output = Double.parseDouble(intermediate);
+        return output;
+    }
+
     public void updateDatabase(String name, String cardName, String src, String purchaseUrl, double price, int code){
 
         List searchForName = cardDAO.searchCards("from CardAnnotation where cardName='" + escapeQuotes(cardName) + "'");
@@ -56,6 +64,7 @@ public abstract class Scraper extends Thread{
             newCard.setCard_set_code(code);
 
             cardDAO.addCard(newCard);
+            System.out.println("Adding new card");
         } else {
             System.out.println("Card already exists");
         }
@@ -78,28 +87,10 @@ public abstract class Scraper extends Thread{
             optionAnnotation.setLink(purchaseUrl);
 //            optionAnnotation.setPrice(price);
             optionAnnotation.setShopName(name);
-
-//            System.out.println("Adding new option");
-//            //Id not set
-//            optionDAO.addOption(optionAnnotation);
-//            //Test id - should be set
+            System.out.println("Creating new option");
         }
         optionAnnotation.setPrice(price);
         optionDAO.updateOption(optionAnnotation); //Save or update
-
-//        } else if (optionAnnotation.getPrice() != price) {
-//
-//            //searchForIDOption.get(0).setPrice(price);
-//            //optionDao.saveOrUpdate(searchForIDOption.get(0))
-//
-//           // OptionAnnotation tempOption = optionDAO.getOption(searchForIDCard.get(0).getId());
-//            optionAnnotation.setPrice(price);
-//
-//            System.out.println("Updating existing option");
-//            optionDAO.updateOption(optionAnnotation);
-//
-//        } else {
-//            System.out.println("No change required");
-//        }
+        System.out.println("SaveOrUpdating Option");
     }
 }

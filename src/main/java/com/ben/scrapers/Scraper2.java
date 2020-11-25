@@ -27,7 +27,7 @@ public class Scraper2 extends Scraper {
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();
-        options.setHeadless(false);
+        options.setHeadless(true);
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
@@ -51,7 +51,7 @@ public class Scraper2 extends Scraper {
             // Find the picture
             WebElement imageTag = card.findElement(By.cssSelector("div.prod-el__image-wrap > img"));
             src = imageTag.getAttribute("src");
-            System.out.println("Image source: " + src);
+            // System.out.println("Image source: " + src);
 
             // Find the name
             WebElement nameTag = card.findElement(By.cssSelector("h6.prod-el__title"));
@@ -62,16 +62,16 @@ public class Scraper2 extends Scraper {
             } else {
                 cardName = longName.substring(0, longName.indexOf(" :"));
             }
-            System.out.println("Card name: " + cardName);
+            //System.out.println("Card name: " + cardName);
 
             // Find the purchase URL
             purchaseUrl = card.getAttribute("href");
-            System.out.println(purchaseUrl);
+            //System.out.println(purchaseUrl);
 
             // Find the price
             WebElement priceTag = card.findElement(By.cssSelector("p.prod-el__pricing"));
             price = Double.parseDouble(priceTag.getAttribute("innerHTML").substring(2));
-            System.out.println("Price: " + price);
+            //System.out.println("Price: " + price);
 
             // Find the set code
             String codeString = longName.substring(longName.indexOf("ZENDIKAR RISING ") + 16, longName.indexOf("- Magic the Gathering Single Card") - 1);
@@ -79,9 +79,10 @@ public class Scraper2 extends Scraper {
                 codeString = codeString.substring(0, codeString.indexOf('/'));
             }
             code = Integer.parseInt(codeString);
-            System.out.println("Set Code: " + code);
+            //System.out.println("Set Code: " + code);
 
-
+            // Add to database if required
+            updateDatabase(this.getName(), cardName, src, purchaseUrl, price, code);
         }
 
         try {
