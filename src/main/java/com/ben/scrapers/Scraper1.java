@@ -13,8 +13,8 @@ import java.util.Scanner;
  * Generic class for a web scraper
  */
 public class Scraper1 extends Scraper {
-    /**
-     * A String to remember which scraper is which
+    /*
+      A String to remember which scraper is which
      */
     private String name;
 
@@ -31,7 +31,7 @@ public class Scraper1 extends Scraper {
 
         WebDriver driver = new ChromeDriver(options);
         stop = false;
-
+while (runThread){
         driver.get("https://www.magicmadhouse.co.uk/magic-the-gathering-c1#t10659:t10778:t10779:t10780:t85:t86:t10781");
 
         try {
@@ -98,6 +98,7 @@ public class Scraper1 extends Scraper {
             }
         }
 */
+}
         driver.quit();
     }
 }

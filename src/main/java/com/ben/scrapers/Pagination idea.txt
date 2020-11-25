@@ -1,0 +1,14 @@
+driver.get(url of page - no special arguments)
+Scrape the value of number of pages
+Format to int
+set pageTracker to 1
+
+do
+    Scrape this page
+    Update database
+    sleep(crawlDelay)
+    Increment pageTracker
+    driver.get(url of page with argument to go to page n+1
+while pageTracker <= number of pages
+
+then whole function loops every now and then to update database

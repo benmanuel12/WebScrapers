@@ -64,26 +64,42 @@ public abstract class Scraper extends Thread{
 
         // Search for Options with that card Id and this scraper name
         System.out.println(searchForIDCard.get(0).getId());
-        List<OptionAnnotation> searchForIDOption = optionDAO.searchOptions("from OptionAnnotation where id=" + searchForIDCard.get(0).getId() + " and shopName='" + escapeQuotes(name) + "'");
-        if (searchForIDOption.isEmpty()) {
-            OptionAnnotation newOption = new OptionAnnotation();
-            newOption.setCardId(searchForIDCard.get(0));
-            newOption.setLink(purchaseUrl);
-            newOption.setPrice(price);
-            newOption.setShopName(name);
+        List<OptionAnnotation> searchForIDOption = optionDAO.searchOptions("from OptionAnnotation where card_id=" + searchForIDCard.get(0).getId() + " and shopName='" + escapeQuotes(name) + "'");
 
-            System.out.println("Adding new option");
-            optionDAO.addOption(newOption);
+        OptionAnnotation optionAnnotation;
+        if(searchForIDOption.isEmpty())
+            optionAnnotation = null;
+        else
+            optionAnnotation = searchForIDOption.get(0);
 
-        } else if (searchForIDOption.get(0).getPrice() != price) {
-            OptionAnnotation tempOption = optionDAO.getOption(searchForIDCard.get(0).getId());
-            tempOption.setPrice(price);
+        if (optionAnnotation == null) {
+            optionAnnotation = new OptionAnnotation();
+            optionAnnotation.setCardId(searchForIDCard.get(0));
+            optionAnnotation.setLink(purchaseUrl);
+//            optionAnnotation.setPrice(price);
+            optionAnnotation.setShopName(name);
 
-            System.out.println("Updating existing option");
-            optionDAO.updateOption(tempOption);
-
-        } else {
-            System.out.println("No change required");
+//            System.out.println("Adding new option");
+//            //Id not set
+//            optionDAO.addOption(optionAnnotation);
+//            //Test id - should be set
         }
+        optionAnnotation.setPrice(price);
+        optionDAO.updateOption(optionAnnotation); //Save or update
+
+//        } else if (optionAnnotation.getPrice() != price) {
+//
+//            //searchForIDOption.get(0).setPrice(price);
+//            //optionDao.saveOrUpdate(searchForIDOption.get(0))
+//
+//           // OptionAnnotation tempOption = optionDAO.getOption(searchForIDCard.get(0).getId());
+//            optionAnnotation.setPrice(price);
+//
+//            System.out.println("Updating existing option");
+//            optionDAO.updateOption(optionAnnotation);
+//
+//        } else {
+//            System.out.println("No change required");
+//        }
     }
 }
