@@ -21,10 +21,6 @@ public class Scraper1 extends Scraper {
     public Scraper1() {
     }
 
-    /**
-     * Implements the run method from Runnable. This test one just prints the name.
-     * Can be replaced with proper scraping code later
-     */
     public void run() {
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);

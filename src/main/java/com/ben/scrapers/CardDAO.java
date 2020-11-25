@@ -49,7 +49,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
-        //Add Card to database - will not be stored until we commit the transaction
+        //Updates Card in database - will not be stored until we commit the transaction
         session.saveOrUpdate(card);
 
         //Commit transaction to save it to database
@@ -69,7 +69,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
-        //Get Card from database - will not be stored until we commit the transaction
+        //Get Card from database
         CardAnnotation card = session.load(CardAnnotation.class, id);
 
         //Commit transaction to save it to database
@@ -92,7 +92,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
-
+        // Query the database
         List<CardAnnotation> cardList = session.createQuery(query).getResultList();
 
         //Close the session and release database connection
@@ -110,6 +110,7 @@ public class CardDAO {
         //Start transaction
         session.beginTransaction();
 
+        // Loads a card from the database and deletes it
         CardAnnotation card = session.load(CardAnnotation.class, id);
         if (card != null){
             session.delete(card);
@@ -123,14 +124,25 @@ public class CardDAO {
         System.out.println("Card deleted from database with ID: " + card.getId());
     }
 
+    /**
+     * Closes the SessionFactory instance
+     */
     public void shutDown(){
         sessionFactory.close();
     }
 
+    /**
+     * Returns the SessionFactory instance assigned to this DAO
+     * @return
+     */
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
+    /**
+     * Sets the value of the SessionFactory assigned to this DAO
+     * @param sessionFactory
+     */
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
