@@ -43,7 +43,7 @@ public class CardAnnotation {
 
     /**
      * Sets the value of the id attribute
-     * @param id
+     * @param id the id of the card (auto set by Hibernate under autoincrement)
      */
     public void setId(int id) {
         this.id = id;
@@ -59,7 +59,7 @@ public class CardAnnotation {
 
     /**
      * Sets the value of the cardName attribute
-     * @param cardName
+     * @param cardName the name of the card
      */
     public void setCardName(String cardName) {
         this.cardName = cardName;
@@ -75,7 +75,7 @@ public class CardAnnotation {
 
     /**
      * Sets the value of the cardSetCode attribute
-     * @param cardSetCode
+     * @param cardSetCode special value for the creators
      */
     public void setCardSetCode(int cardSetCode) {
         this.cardSetCode = cardSetCode;
@@ -91,7 +91,7 @@ public class CardAnnotation {
 
     /**
      * Sets the value of the imageUrl attribute
-     * @param imageUrl
+     * @param imageUrl link for an image
      */
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;

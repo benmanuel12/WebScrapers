@@ -48,7 +48,7 @@ public class OptionAnnotation {
 
     /**
      * Sets the value of the id attribute
-     * @param id
+     * @param id id for the option (Auto set by Hibernate autoincrement)
      */
     public void setId(int id) {
         this.id = id;
@@ -64,7 +64,7 @@ public class OptionAnnotation {
 
     /**
      * Sets the value of the shopName attribute
-     * @param shopName
+     * @param shopName String for name of Shop being scraper (Scrapers share the name)
      */
     public void setShopName(String shopName) {
         this.shopName = shopName;
@@ -78,22 +78,42 @@ public class OptionAnnotation {
         return cardId;
     }
 
+    /**
+     * Sets the value of the cardId attribute
+     * @param cardId instance of the CardAnnotation class
+     */
     public void setCardId(CardAnnotation cardId) {
         this.cardId = cardId;
     }
 
+    /**
+     * Returns the value of the price attribute
+     * @return price
+     */
     public double getPrice() {
         return price;
     }
 
+    /**
+     * Sets the value of the price attribute
+     * @param price the price of the card
+     */
     public void setPrice(double price) {
         this.price = price;
     }
 
+    /**
+     * Returns the value of the link attribute
+     * @return link
+     */
     public String getLink() {
         return link;
     }
 
+    /**
+     * Sets the value of the link attribute
+     * @param link URL of the original product listing
+     */
     public void setLink(String link) {
         this.link = link;
     }

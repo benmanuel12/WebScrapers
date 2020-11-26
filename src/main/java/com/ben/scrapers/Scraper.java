@@ -2,6 +2,9 @@ package com.ben.scrapers;
 
 import java.util.List;
 
+/**
+ * Abstract super class for Scrapers to hold the shared code
+ */
 public abstract class Scraper extends Thread{
 
     final protected double EXCHANGE_RATE = 0.75;

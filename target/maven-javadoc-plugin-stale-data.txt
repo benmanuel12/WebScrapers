@@ -1,0 +1,25 @@
+cmd.exe
+/X
+/C
+""C:\Program Files\Java\jdk-11.0.8\bin\javadoc.exe" @options @packages"
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\allclasses-index.html = 1606401235290
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\allclasses.html = 1606401235369
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\allpackages-index.html = 1606401235317
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\constant-values.html = 1606401234800
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\deprecated-list.html = 1606401235343
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\element-list = 1606401234722
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\help-doc.html = 1606401235395
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\index-all.html = 1606401235254
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\index.html = 1606401235379
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\member-search-index.js = 1606401235238
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\member-search-index.zip = 1606401235247
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\options = 1606401230533
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\overview-tree.html = 1606401235158
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\package-search-index.js = 1606401235205
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\package-search-index.zip = 1606401235214
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\packages = 1606401230534
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\script.js = 1606401235430
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\search.js = 1606401235445
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\stylesheet.css = 1606401235420
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\type-search-index.js = 1606401235222
+C:\Users\broth\Documents\My Documents\University\Uni Work and Coursework Yr3\CST3130 Price Comparison Website\WebScrapers\target\site\apidocs\type-search-index.zip = 1606401235229
