@@ -10,7 +10,8 @@ import java.util.List;
  * Data Access Object for the options table in the database
  */
 public class OptionDAO {
-    //Creates new Sessions when we need to interact with the database
+
+    // Creates new Sessions when we need to interact with the database
     private SessionFactory sessionFactory;
 
 

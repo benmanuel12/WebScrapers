@@ -13,9 +13,8 @@ import java.util.Scanner;
  * Web Scraper class extending super class
  */
 public class Scraper2 extends Scraper {
-    /**
-     * A String to remember which scraper is which
-     */
+
+    // A String to remember which scraper is which
     private String name;
 
     /**

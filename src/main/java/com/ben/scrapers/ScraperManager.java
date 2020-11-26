@@ -7,9 +7,7 @@ import java.util.ArrayList;
  */
 public class ScraperManager {
 
-    /**
-     * List to store references to Scraper instances
-     */
+    // List to store references to Scraper instances
     private ArrayList<Scraper> scraperList = new ArrayList<Scraper>();
 
     public ScraperManager(){
