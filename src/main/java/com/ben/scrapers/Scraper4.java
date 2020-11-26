@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Generic class for a web scraper
+ * Web Scraper class extending super class
  */
 public class Scraper4 extends Scraper {
     /**
@@ -18,12 +18,14 @@ public class Scraper4 extends Scraper {
      */
     private String name;
 
+    /**
+     * Zero argument constructor
+     */
     public Scraper4() {
     }
 
     /**
-     * Implements the run method from Runnable. This test one just prints the name.
-     * Can be replaced with proper scraping code later
+     * Scrapes the website
      */
     public void run() {
         ChromeOptions options = new ChromeOptions();

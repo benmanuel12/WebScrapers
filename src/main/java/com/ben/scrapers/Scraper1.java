@@ -10,17 +10,23 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Generic class for a web scraper
+ * Web Scraper class extending super class
  */
 public class Scraper1 extends Scraper {
-    /*
+    /**
       A String to remember which scraper is which
      */
     private String name;
 
+    /**
+     * Zero argument constructor
+     */
     public Scraper1() {
     }
 
+    /**
+     * Scrapes the website
+     */
     public void run() {
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(true);
