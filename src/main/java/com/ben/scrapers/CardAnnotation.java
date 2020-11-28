@@ -69,7 +69,7 @@ public class CardAnnotation {
      * Returns the value of the card
      * @return cardSetCode
      */
-    public int getCard_set_code() {
+    public int getCardSetCode() {
         return cardSetCode;
     }
 
