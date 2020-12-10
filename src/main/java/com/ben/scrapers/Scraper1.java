@@ -7,7 +7,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Web Scraper class extending super class
@@ -95,11 +94,7 @@ public class Scraper1 extends Scraper {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-//            Scanner input = new Scanner(System.in);
-//            if (input.next() == " ") {
-//                stop = true;
-//            }
+        
         driver.quit();
     }
 }

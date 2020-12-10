@@ -13,6 +13,7 @@ public class Main {
      * @param args needed for main method
      */
     public static void main(String[] args){
+
         System.setProperty("webdriver.chrome.driver", "C:\\ChromeDriver\\chromedriver.exe");
 
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
